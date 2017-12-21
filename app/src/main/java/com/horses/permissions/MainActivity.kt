@@ -5,15 +5,13 @@ import android.util.Log
 import com.horses.library.PermissionsActivity
 
 class MainActivity : PermissionsActivity() {
+
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    override fun onResume() {
-        super.onResume()
         requestPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
@@ -25,7 +23,5 @@ class MainActivity : PermissionsActivity() {
     override fun permissionDenied(denied: Array<String>) {
         super.permissionDenied(denied)
         Log.w(TAG , "permissionDenied " + denied.toList())
-
-        requestPermissions(*denied)
     }
 }
