@@ -56,8 +56,9 @@ If you need to intercept the permission response, you can do like this
         Log.w(TAG , "permissionDenied " + denied.toList())
     }
 ```
-
-
-## TODO
-
-* Request permissions for Fragments
+### Fragments
+First you need to extend the PermissionsFragment
+```kotlin
+   class MainFragment : PermissionsFragment()
+```
+And the rest is the same
