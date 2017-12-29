@@ -12,10 +12,12 @@ class MainActivity : PermissionsActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        //requestPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        supportFragmentManager.beginTransaction().replace(R.id.content, MainFragment()).commit()
     }
 
-    override fun permissionGranted() {
+    /*override fun permissionGranted() {
         super.permissionGranted()
         Log.i(TAG , "permissionGranted")
     }
@@ -23,5 +25,7 @@ class MainActivity : PermissionsActivity() {
     override fun permissionDenied(denied: Array<String>) {
         super.permissionDenied(denied)
         Log.w(TAG , "permissionDenied " + denied.toList())
-    }
+
+        //requestPermissions(*denied)
+    }*/
 }
