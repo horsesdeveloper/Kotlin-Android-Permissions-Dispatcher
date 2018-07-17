@@ -14,7 +14,8 @@ abstract class PermissionsActivity  : AppCompatActivity() {
     @Suppress("PrivatePropertyName")
     private val NEEDED_PERMISSIONS = 2602
 
-    private var permissionsNeed: MutableList<String> = mutableListOf()
+    private val permissionsNeverAsk: ArrayList<String> = ArrayList()
+    private var permissionsNeed: ArrayList<String> = ArrayList()
     private var isCompleted = false
 
     fun requestPermissions(vararg arrays: String) {
@@ -23,6 +24,8 @@ abstract class PermissionsActivity  : AppCompatActivity() {
         arrays.filter {
             ActivityCompat.checkSelfPermission(applicationContext, it) != PackageManager.PERMISSION_GRANTED
         }.forEach { permissionsNeed.add(it) }
+
+        if (permissionsNeed.size == permissionsNeverAsk.size) return
 
         if (permissionsNeed.size > 0) {
             ActivityCompat.requestPermissions(this, permissionsNeed.toTypedArray(), NEEDED_PERMISSIONS)
@@ -41,7 +44,7 @@ abstract class PermissionsActivity  : AppCompatActivity() {
             if (success) permissionGranted()
             else {
 
-                val permissionsNeverAsk: ArrayList<String> = ArrayList()
+                /*val permissionsNeverAsk: ArrayList<String> = ArrayList()*/
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     permissionsNeed.filter {
