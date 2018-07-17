@@ -12,7 +12,7 @@ TapTargetView is distributed using jcenter
    }
    
    dependencies {
-         compile 'com.horses.library:permission-dispatcher:0.4'
+         compile 'com.horses.library:permission-dispatcher:0.5'
    }
 ```
 ## Usage
