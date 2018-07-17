@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-def version = "0.6"
+def version = "0.7"
 
 android {
     compileSdkVersion 26

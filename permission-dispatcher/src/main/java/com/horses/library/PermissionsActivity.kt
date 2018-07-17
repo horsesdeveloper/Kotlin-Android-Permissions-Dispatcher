@@ -15,6 +15,7 @@ abstract class PermissionsActivity  : AppCompatActivity() {
     private val NEEDED_PERMISSIONS = 2602
 
     private var permissionsNeed: MutableList<String> = mutableListOf()
+    private var isCompleted = false
 
     fun requestPermissions(vararg arrays: String) {
         permissionsNeed.clear()
@@ -48,7 +49,7 @@ abstract class PermissionsActivity  : AppCompatActivity() {
                     }.mapTo(permissionsNeverAsk) { it }
                 }
 
-                if (!permissions.isEmpty()) {
+                if (!permissions.isEmpty() && !isCompleted) {
                     permissionNeverAsk(permissionsNeverAsk.toTypedArray())
                 }
 
@@ -58,6 +59,9 @@ abstract class PermissionsActivity  : AppCompatActivity() {
 
                 if (permissionsNeverAsk.size != permissionsDenied.size) {
                     permissionDenied(permissionsDenied.toTypedArray())
+                }
+                else {
+                    isCompleted = true
                 }
             }
             return
