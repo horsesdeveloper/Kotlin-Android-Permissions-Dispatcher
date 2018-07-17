@@ -12,7 +12,7 @@ TapTargetView is distributed using jcenter
    }
    
    dependencies {
-         compile 'com.horses.library:permission-dispatcher:0.5'
+         compile 'com.horses.library:permission-dispatcher:0.6'
    }
 ```
 ## Usage
@@ -54,6 +54,10 @@ If you need to intercept the permission response, you can do like this
 
     override fun permissionDenied(denied: Array<String>) {
         Log.w(TAG , "permissionDenied " + denied.toList())
+    }
+
+    override fun permissionNeverAsk(denied: Array<String>) {
+        Log.w(TAG , "permissionNeverAsk " + denied.toList())
     }
 ```
 ### Fragments
