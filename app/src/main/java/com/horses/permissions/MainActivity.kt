@@ -1,5 +1,6 @@
 package com.horses.permissions
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import com.horses.library.PermissionsActivity
@@ -12,12 +13,12 @@ class MainActivity : PermissionsActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //requestPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        requestPermissions(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        supportFragmentManager.beginTransaction().replace(R.id.content, MainFragment()).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.content, MainFragment()).commit()
     }
 
-    /*override fun permissionGranted() {
+    override fun permissionGranted() {
         super.permissionGranted()
         Log.i(TAG , "permissionGranted")
     }
@@ -26,6 +27,12 @@ class MainActivity : PermissionsActivity() {
         super.permissionDenied(denied)
         Log.w(TAG , "permissionDenied " + denied.toList())
 
-        //requestPermissions(*denied)
-    }*/
+        requestPermissions(*denied)
+    }
+
+    override fun permissionNeverAsk(denied: Array<String>) {
+        super.permissionNeverAsk(denied)
+        Log.w(TAG , "permissionNeverAsk " + denied.toList())
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.horses.library
 
 import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -39,13 +40,25 @@ abstract class PermissionsActivity  : AppCompatActivity() {
             if (success) permissionGranted()
             else {
 
-                val permissionsDenied: MutableList<String> = mutableListOf()
+                val permissionsNeverAsk: ArrayList<String> = ArrayList()
 
-                permissionsNeed.indices.filter {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    permissionsNeed.filter {
+                        !shouldShowRequestPermissionRationale(it)
+                    }.mapTo(permissionsNeverAsk) { it }
+                }
+
+                if (!permissions.isEmpty()) {
+                    permissionNeverAsk(permissionsNeverAsk.toTypedArray())
+                }
+
+                val permissionsDenied: List<String> = permissionsNeed.indices.filter {
                     grantResults[it] != PackageManager.PERMISSION_GRANTED
-                }.mapTo(permissionsDenied) { permissionsNeed[it] }
+                }.map { permissionsNeed[it] }
 
-                permissionDenied(permissionsDenied.toTypedArray())
+                if (permissionsNeverAsk.size != permissionsDenied.size) {
+                    permissionDenied(permissionsDenied.toTypedArray())
+                }
             }
             return
         }
@@ -59,5 +72,9 @@ abstract class PermissionsActivity  : AppCompatActivity() {
 
     open fun permissionDenied(denied: Array<String>) {
         Toast.makeText(applicationContext, "Permissions Denied", Toast.LENGTH_SHORT).show()
+    }
+
+    open fun permissionNeverAsk(denied: Array<String>) {
+        Toast.makeText(applicationContext, "Permissions never ask", Toast.LENGTH_SHORT).show()
     }
 }
