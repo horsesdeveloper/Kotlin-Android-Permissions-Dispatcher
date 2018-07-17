@@ -25,7 +25,7 @@ abstract class PermissionsActivity  : AppCompatActivity() {
             ActivityCompat.checkSelfPermission(applicationContext, it) != PackageManager.PERMISSION_GRANTED
         }.forEach { permissionsNeed.add(it) }
 
-        if (permissionsNeed.size == permissionsNeverAsk.size) return
+        if (arrays.size == permissionsNeverAsk.size) return
 
         if (permissionsNeed.size > 0) {
             ActivityCompat.requestPermissions(this, permissionsNeed.toTypedArray(), NEEDED_PERMISSIONS)
